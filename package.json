@@ -1,0 +1,9 @@
+{
+  "name": "adaos-test-project",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Tests passed\"",
+    "build": "echo \"Build complete\"",
+    "lint": "echo \"Lint passed\""
+  }
+}
