@@ -2,6 +2,7 @@
   "name": "adaos-test-project",
   "version": "1.0.0",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Tests passed\"",
     "build": "echo \"Build complete\"",
     "lint": "echo \"Lint passed\""
