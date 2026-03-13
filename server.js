@@ -12,6 +12,13 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
+  // Path traversal protection: check URL path before any path operations
+  if (req.url.includes('..')) {
+    res.writeHead(403);
+    res.end('Forbidden');
+    return;
+  }
+
   // API endpoint
   if (req.method === 'GET' && req.url === '/api/hello') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -22,15 +29,6 @@ const server = http.createServer((req, res) => {
   // Serve static files
   let filePath = req.url === '/' ? '/index.html' : req.url;
   filePath = path.join(__dirname, filePath);
-
-  // Path traversal protection: ensure file stays within project directory
-  const resolved = path.resolve(filePath);
-  const rootDir = path.resolve(__dirname);
-  if (!resolved.startsWith(rootDir + path.sep)) {
-    res.writeHead(403);
-    res.end('Forbidden');
-    return;
-  }
 
   const ext = path.extname(filePath);
   const contentType = MIME_TYPES[ext] || 'text/plain';
