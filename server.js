@@ -23,6 +23,15 @@ const server = http.createServer((req, res) => {
   let filePath = req.url === '/' ? '/index.html' : req.url;
   filePath = path.join(__dirname, filePath);
 
+  // Path traversal protection: ensure file stays within project directory
+  const resolved = path.resolve(filePath);
+  const rootDir = path.resolve(__dirname);
+  if (!resolved.startsWith(rootDir + path.sep)) {
+    res.writeHead(403);
+    res.end('Forbidden');
+    return;
+  }
+
   const ext = path.extname(filePath);
   const contentType = MIME_TYPES[ext] || 'text/plain';
 
