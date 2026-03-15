@@ -4,6 +4,7 @@
   "scripts": {
     "test": "echo \"Tests passed\"",
     "build": "echo \"Build complete\"",
-    "lint": "echo \"Lint passed\""
+    "lint": "echo \"Lint passed\"",
+    "start": "node server.js"
   }
 }
